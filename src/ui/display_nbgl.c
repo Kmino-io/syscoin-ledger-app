@@ -7,6 +7,12 @@
 
 #include <assert.h>
 
+#ifdef HAVE_COIN_SYSCOIN
+#define COIN_DISPLAY_NAME "Syscoin"
+#else
+#define COIN_DISPLAY_NAME "Bitcoin"
+#endif
+
 #define REVIEW_CONFIRM FIRST_USER_TOKEN + 1
 
 static const char *confirmed_status;  // text displayed in confirmation page (after long press)
@@ -15,7 +21,7 @@ static bool show_message_start_page;
 
 /* Graphical resources (GA) used by the application and NBGL */
 #ifdef SCREEN_SIZE_WALLET
-const char GA_SIGN_TRANSACTION[] = "Sign transaction\nto send Bitcoin?";
+const char GA_SIGN_TRANSACTION[] = "Sign transaction\nto send " COIN_DISPLAY_NAME "?";
 const char GA_SIGN_MESSAGE[] = "Sign message?";
 const char GA_REGISTER_ACCOUNT[] = "Register account?";
 #else
@@ -25,7 +31,7 @@ const char GA_REGISTER_ACCOUNT[] = "Register account";
 #endif /* #ifdef SCREEN_SIZE_WALLET */
 
 const char GA_UNVERIFIED_INPUTS[] = "Unverified inputs\nUpdate your wallet software";
-const char GA_REVIEW_TRANSACTION[] = "Review transaction\nto send Bitcoin";
+const char GA_REVIEW_TRANSACTION[] = "Review transaction\nto send " COIN_DISPLAY_NAME;
 const char GA_REVIEW_MESSAGE[] = "Review message";
 const char GA_LOADING_TRANSACTION[] = "Loading transaction";
 const char GA_LOADING_MESSAGE[] = "Loading message";
@@ -327,7 +333,7 @@ void ui_display_receive_in_wallet_flow(void) {
     nbgl_useCaseAddressReview(g_ui_state.wallet.address,
                               &pairList,
                               &ICON_APP_ACTION,
-                              "Verify Bitcoin\naddress",
+                              "Verify " COIN_DISPLAY_NAME "\naddress",
                               NULL,
                               status_address_callback);
 }
@@ -562,7 +568,7 @@ void ui_display_default_wallet_address_flow(void) {
     nbgl_useCaseAddressReview(g_ui_state.wallet.address,
                               NULL,
                               &ICON_APP_ACTION,
-                              "Verify Bitcoin\naddress",
+                              "Verify " COIN_DISPLAY_NAME "\naddress",
                               NULL,
                               status_address_callback);
 }
