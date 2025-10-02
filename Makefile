@@ -63,7 +63,7 @@ endif
 
 # Setting to allow building variant applications
 VARIANT_PARAM = COIN
-VARIANT_VALUES = bitcoin_testnet bitcoin
+VARIANT_VALUES = bitcoin_testnet bitcoin syscoin
 
 # simplify for tests
 ifndef COIN
@@ -105,9 +105,28 @@ else ifeq ($(COIN),bitcoin)
 
     APPNAME = "Bitcoin"
 
+
+else ifeq ($(COIN),syscoin)
+    # Syscoin mainnet
+    DEFINES   += BIP32_PUBKEY_VERSION=0x0488B21E
+    DEFINES   += BIP44_COIN_TYPE=57
+    DEFINES   += COIN_P2PKH_VERSION=63
+    DEFINES   += COIN_P2SH_VERSION=5
+    DEFINES   += COIN_NATIVE_SEGWIT_PREFIX=\"sys\"
+    DEFINES   += COIN_COINID_SHORT=\"SYS\"
+    DEFINES   += HAVE_COIN_SYSCOIN
+
+    APPNAME = "Syscoin"
+
+    # Syscoin-branded launcher icons
+    ICON_NANOX  = icons/nanox_app_syscoin.gif
+    ICON_NANOSP = icons/nanox_app_syscoin.gif
+    ICON_STAX   = icons/stax_app_syscoin.png
+    ICON_FLEX   = icons/flex_app_syscoin.png
+
 else
     ifeq ($(filter clean,$(MAKECMDGOALS)),)
-        $(error Unsupported COIN - use bitcoin_testnet, bitcoin)
+        $(error Unsupported COIN - use bitcoin_testnet, bitcoin, syscoin)
     endif
 endif
 
@@ -121,11 +140,12 @@ ENABLE_NBGL_FOR_NANO_DEVICES = 1
 
 # Application icons following guidelines:
 # https://developers.ledger.com/docs/embedded-app/design-requirements/#device-icon
-ICON_NANOX = icons/nanox_app_bitcoin.gif
-ICON_NANOSP = icons/nanox_app_bitcoin.gif
-ICON_STAX = icons/stax_app_bitcoin.gif
-ICON_FLEX = icons/flex_app_bitcoin.gif
-ICON_APEX_P = icons/apex_p_app_bitcoin.png
+# Defaults for Bitcoin variants; can be overridden by a specific COIN branch above.
+ICON_NANOX ?= icons/nanox_app_bitcoin.gif
+ICON_NANOSP ?= icons/nanox_app_bitcoin.gif
+ICON_STAX ?= icons/stax_app_bitcoin.gif
+ICON_FLEX ?= icons/flex_app_bitcoin.gif
+ICON_APEX_P ?= icons/apex_p_app_bitcoin.png
 
 ########################################
 # Application communication interfaces #
