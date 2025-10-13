@@ -10,7 +10,7 @@
 #ifdef HAVE_COIN_SYSCOIN
 #define COIN_DISPLAY_NAME "Syscoin"
 #else
-#define COIN_DISPLAY_NAME "Bitcoin"
+#define COIN_DISPLAY_NAME "Syscoin Test"
 #endif
 
 #define REVIEW_CONFIRM FIRST_USER_TOKEN + 1

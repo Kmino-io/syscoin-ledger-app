@@ -22,31 +22,22 @@
 
 #if defined(TARGET_STAX) || defined(TARGET_FLEX)
     #define ICON_APP_IMPORTANT IMPORTANT_CIRCLE_ICON
-    #ifdef HAVE_COIN_SYSCOIN
+
         #define ICON_APP_HOME   C_Syscoin_64px
         #define ICON_APP_ACTION C_Syscoin_64px
-    #else
-        #define ICON_APP_HOME   C_Bitcoin_64px
-        #define ICON_APP_ACTION C_Bitcoin_64px
-    #endif
+    
 #elif defined(TARGET_APEX_P)
     #define ICON_APP_IMPORTANT IMPORTANT_CIRCLE_ICON
-    #ifdef HAVE_COIN_SYSCOIN
+   
         #define ICON_APP_HOME   C_Syscoin_48px
         #define ICON_APP_ACTION C_Syscoin_48px
-    #else
-        #define ICON_APP_HOME   C_Bitcoin_48px
-        #define ICON_APP_ACTION C_Bitcoin_48px
-    #endif
+    
 #else
     #define ICON_APP_IMPORTANT C_icon_warning
-    #ifdef HAVE_COIN_SYSCOIN
+
         #define ICON_APP_HOME   C_syscoin_logo
         #define ICON_APP_ACTION C_syscoin_logo_inv
-    #else
-        #define ICON_APP_HOME   C_bitcoin_logo
-        #define ICON_APP_ACTION C_bitcoin_logo_inv
-    #endif
+
 #endif
 
 typedef struct tx_ux_warning_s {

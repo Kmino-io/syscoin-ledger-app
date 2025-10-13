@@ -63,11 +63,11 @@ endif
 
 # Setting to allow building variant applications
 VARIANT_PARAM = COIN
-VARIANT_VALUES = bitcoin_testnet bitcoin syscoin
+VARIANT_VALUES = syscoin_testnet syscoin
 
 # simplify for tests
 ifndef COIN
-COIN=bitcoin_testnet
+COIN=syscoin_testnet
 endif
 
 ########################################
@@ -78,7 +78,7 @@ HAVE_APPLICATION_FLAG_GLOBAL_PIN = 1
 HAVE_APPLICATION_FLAG_BOLOS_SETTINGS = 1
 HAVE_APPLICATION_FLAG_LIBRARY = 1
 
-ifeq ($(COIN),bitcoin_testnet)
+ifeq ($(COIN),syscoin_testnet)
     # Bitcoin testnet, no legacy support
     DEFINES   += BIP32_PUBKEY_VERSION=0x043587CF
     DEFINES   += BIP44_COIN_TYPE=1
@@ -87,26 +87,14 @@ ifeq ($(COIN),bitcoin_testnet)
     DEFINES   += COIN_NATIVE_SEGWIT_PREFIX=\"tb\"
     DEFINES   += COIN_COINID_SHORT=\"TEST\"
 
-    APPNAME = "Bitcoin Test"
-else ifeq ($(COIN),bitcoin)
+    APPNAME = "Syscoin Test"
+
+else ifeq ($(COIN),syscoin)
     # the version for performance tests automatically approves all requests
     # there is no reason to ever compile the mainnet app with this flag
     ifneq ($(AUTOAPPROVE_FOR_PERF_TESTS),0)
         $(error Use testnet app for performance tests)
     endif
-
-    # Bitcoin mainnet, no legacy support
-    DEFINES   += BIP32_PUBKEY_VERSION=0x0488B21E
-    DEFINES   += BIP44_COIN_TYPE=0
-    DEFINES   += COIN_P2PKH_VERSION=0
-    DEFINES   += COIN_P2SH_VERSION=5
-    DEFINES   += COIN_NATIVE_SEGWIT_PREFIX=\"bc\"
-    DEFINES   += COIN_COINID_SHORT=\"BTC\"
-
-    APPNAME = "Bitcoin"
-
-
-else ifeq ($(COIN),syscoin)
     # Syscoin mainnet
     DEFINES   += BIP32_PUBKEY_VERSION=0x0488B21E
     DEFINES   += BIP44_COIN_TYPE=57
@@ -118,15 +106,10 @@ else ifeq ($(COIN),syscoin)
 
     APPNAME = "Syscoin"
 
-    # Syscoin-branded launcher icons
-    ICON_NANOX  = icons/nanox_app_syscoin.gif
-    ICON_NANOSP = icons/nanox_app_syscoin.gif
-    ICON_STAX   = icons/stax_app_syscoin.png
-    ICON_FLEX   = icons/flex_app_syscoin.png
 
 else
     ifeq ($(filter clean,$(MAKECMDGOALS)),)
-        $(error Unsupported COIN - use bitcoin_testnet, bitcoin, syscoin)
+        $(error Unsupported COIN - use syscoin_testnet, syscoin)
     endif
 endif
 
@@ -141,10 +124,10 @@ ENABLE_NBGL_FOR_NANO_DEVICES = 1
 # Application icons following guidelines:
 # https://developers.ledger.com/docs/embedded-app/design-requirements/#device-icon
 # Defaults for Bitcoin variants; can be overridden by a specific COIN branch above.
-ICON_NANOX ?= icons/nanox_app_bitcoin.gif
-ICON_NANOSP ?= icons/nanox_app_bitcoin.gif
-ICON_STAX ?= icons/stax_app_bitcoin.gif
-ICON_FLEX ?= icons/flex_app_bitcoin.gif
+ICON_NANOX  = icons/nanox_app_syscoin.gif
+ICON_NANOSP = icons/nanox_app_syscoin.gif
+ICON_STAX   = icons/stax_app_syscoin.png
+ICON_FLEX   = icons/flex_app_syscoin.png
 ICON_APEX_P ?= icons/apex_p_app_bitcoin.png
 
 ########################################
