@@ -55,7 +55,7 @@ random.seed(0)  # make sure tests are repeatable
 
 # Make sure that the native client library is used with, as speculos would otherwise
 # return a version number < 2.0.0 for the app
-os.environ['SPECULOS_APPNAME'] = f'Bitcoin Test:{get_app_version()}'
+os.environ['SPECULOS_APPNAME'] = f'Syscoin Test:{get_app_version()}'
 
 
 BITCOIN_DIRNAME = os.getenv("BITCOIN_DIRNAME", "tests/.test_bitcoin")
@@ -235,7 +235,7 @@ def testnet_to_regtest_addr(addr: str) -> str:
     hrp, data, spec = segwit_addr.bech32_decode(addr)
     if hrp is None:
         return addr  # bech32m decoding failed; either legacy/unknown address type, or invalid address
-    if (hrp != "tb"):
+    if (hrp != "tsys"):
         raise ValueError("Not a valid testnet bech32m string")
     return segwit_addr.bech32_encode("bcrt", data, spec)
 
