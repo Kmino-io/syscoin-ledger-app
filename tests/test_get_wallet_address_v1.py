@@ -27,8 +27,8 @@ def test_get_wallet_address_singlesig_legacy_v1(client: RaggerClient):
         ],
         version=WalletType.WALLET_POLICY_V1
     )
-    assert client.get_wallet_address(wallet, None, 0,  0, False) == "mz5vLWdM1wHVGSmXUkhKVvZbJ2g4epMXSm"
-    assert client.get_wallet_address(wallet, None, 1, 15, False) == "myFCUBRCKFjV7292HnZtiHqMzzHrApobpT"
+    assert client.get_wallet_address(wallet, None, 0,  0, False) == "Tssn2dDP4pS4TwVdNshygHKByL5ciUwZx3"
+    assert client.get_wallet_address(wallet, None, 1, 15, False) == "Ts34AJ1EN8t4JWs8BuaYteaxgHhQHLUxgT"
 
 
 def test_get_wallet_address_singlesig_wit_v1(client: RaggerClient):
@@ -41,8 +41,8 @@ def test_get_wallet_address_singlesig_wit_v1(client: RaggerClient):
         ],
         version=WalletType.WALLET_POLICY_V1
     )
-    assert client.get_wallet_address(wallet, None, 0,  0, False) == "tb1qzdr7s2sr0dwmkwx033r4nujzk86u0cy6fmzfjk"
-    assert client.get_wallet_address(wallet, None, 1, 15, False) == "tb1qlrvzyx8jcjfj2xuy69du9trtxnsvjuped7e289"
+    assert client.get_wallet_address(wallet, None, 0,  0, False) == "tsys1qzdr7s2sr0dwmkwx033r4nujzk86u0cy6ultf9a"
+    assert client.get_wallet_address(wallet, None, 1, 15, False) == "tsys1qlrvzyx8jcjfj2xuy69du9trtxnsvjupec6s2sw"
 
 
 def test_get_wallet_address_singlesig_sh_wit_v1(client: RaggerClient):
@@ -55,8 +55,8 @@ def test_get_wallet_address_singlesig_sh_wit_v1(client: RaggerClient):
         ],
         version=WalletType.WALLET_POLICY_V1
     )
-    assert client.get_wallet_address(wallet, None, 0,  0, False) == "2MyHkbusvLomaarGYMqyq7q9pSBYJRwWcsw"
-    assert client.get_wallet_address(wallet, None, 1, 15, False) == "2NAbM4FSeBQG4o85kbXw2YNfKypcnEZS9MR"
+    assert client.get_wallet_address(wallet, None, 0,  0, False) == "tcJjeXcL4YFzyNnehKLA9JeKdt2A5bje4n"
+    assert client.get_wallet_address(wallet, None, 1, 15, False) == "tocL6sB3u8kVBebrw1HMZr9qBX6dqdARyJ"
 
 
 def test_get_wallet_address_singlesig_taproot_v1(client: RaggerClient):
@@ -72,16 +72,16 @@ def test_get_wallet_address_singlesig_taproot_v1(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, None, 0, 0, False)
-    assert res == "tb1pws8wvnj99ca6acf8kq7pjk7vyxknah0d9mexckh5s0vu2ccy68js9am6u7"
+    assert res == "tsys1pws8wvnj99ca6acf8kq7pjk7vyxknah0d9mexckh5s0vu2ccy68jsrjvezt"
 
     res = client.get_wallet_address(wallet, None, 0, 9, False)
-    assert res == "tb1psl7eyk2jyjzq6evqvan854fts7a5j65rth25yqahkd2a765yvj0qggs5ne"
+    assert res == "tsys1psl7eyk2jyjzq6evqvan854fts7a5j65rth25yqahkd2a765yvj0qw88hdv"
 
     res = client.get_wallet_address(wallet, None, 1, 0, False)
-    assert res == "tb1pmr60r5vfjmdkrwcu4a2z8h39mzs7a6wf2rfhuml6qgcp940x9cxs7t9pdy"
+    assert res == "tsys1pmr60r5vfjmdkrwcu4a2z8h39mzs7a6wf2rfhuml6qgcp940x9cxscyjzn3"
 
     res = client.get_wallet_address(wallet, None, 1, 9, False)
-    assert res == "tb1p98d6s9jkf0la8ras4nnm72zme5r03fexn29e3pgz4qksdy84ndpqgjak72"
+    assert res == "tsys1p98d6s9jkf0la8ras4nnm72zme5r03fexn29e3pgz4qksdy84ndpqwa24ql"
 
 
 # Failure cases for default wallets
@@ -183,7 +183,7 @@ def test_get_wallet_address_multisig_legacy_v1(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 0, False)
-    assert res == "2Mx69MjHC4ViZAH1koVXPvVgaazbBCdr89j"
+    assert res == "tb78QM1bnECyYoXs8xsiwyB5nh52vxaFWC"
 
 
 def test_get_wallet_address_multisig_sh_wit_v1(client: RaggerClient):
@@ -204,7 +204,7 @@ def test_get_wallet_address_multisig_sh_wit_v1(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 0, False)
-    assert res == "2MxAUTJh27foYtyp9dcSxP7RgaSwkkVCHTU"
+    assert res == "tbBTVvRRqQHyHWLFy5oHQavBn9RcQd54NN"
 
 
 def test_get_wallet_address_multisig_wit_v1(client: RaggerClient):
@@ -225,7 +225,7 @@ def test_get_wallet_address_multisig_wit_v1(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 0, False)
-    assert res == "tb1qmyauyzn08cduzdqweexgna2spwd0rndj55fsrkefry2cpuyt4cpsn2pg28"
+    assert res == "tsys1qmyauyzn08cduzdqweexgna2spwd0rndj55fsrkefry2cpuyt4cps49kt5j"
 
 
 def test_get_wallet_address_singlesig_legacy_v1_ui(navigator: Navigator, firmware: Firmware, client:
@@ -241,10 +241,10 @@ def test_get_wallet_address_singlesig_legacy_v1_ui(navigator: Navigator, firmwar
     )
 
     assert client.get_wallet_address(wallet, None, 0,  0, True, navigator=navigator,
-                                     instructions=wallet_instruction_approve(firmware), testname=f"{test_name}_0") == "mz5vLWdM1wHVGSmXUkhKVvZbJ2g4epMXSm"
+                                     instructions=wallet_instruction_approve(firmware), testname=f"{test_name}_0") == "Tssn2dDP4pS4TwVdNshygHKByL5ciUwZx3"
 
     assert client.get_wallet_address(wallet, None, 1, 15, True, navigator=navigator,
-                                     instructions=wallet_instruction_approve(firmware), testname=f"{test_name}_1") == "myFCUBRCKFjV7292HnZtiHqMzzHrApobpT"
+                                     instructions=wallet_instruction_approve(firmware), testname=f"{test_name}_1") == "Ts34AJ1EN8t4JWs8BuaYteaxgHhQHLUxgT"
 
 
 def test_get_wallet_address_multisig_legacy_v1_ui(navigator: Navigator, firmware: Firmware,
@@ -267,4 +267,4 @@ def test_get_wallet_address_multisig_legacy_v1_ui(navigator: Navigator, firmware
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 0, True, navigator=navigator,
                                     instructions=wallet_instruction_approve(firmware),
                                     testname=test_name)
-    assert res == "2Mx69MjHC4ViZAH1koVXPvVgaazbBCdr89j"
+    assert res == "tb78QM1bnECyYoXs8xsiwyB5nh52vxaFWC"

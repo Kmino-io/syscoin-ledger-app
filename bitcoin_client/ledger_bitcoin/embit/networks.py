@@ -22,9 +22,9 @@ NETWORKS = {
     "test": {
         "name": "Testnet",
         "wif": b"\xEF",
-        "p2pkh": b"\x6F",
-        "p2sh": b"\xC4",
-        "bech32": "tb",
+        "p2pkh": b"\x42",  # Syscoin testnet pubkey hash (0x42 from Makefile)
+        "p2sh": b"\x80",   # Syscoin testnet script hash (0x80 from Makefile)
+        "bech32": "tsys",  # Matches your COIN_NATIVE_SEGWIT_PREFIX
         "xprv": b"\x04\x35\x83\x94",
         "xpub": b"\x04\x35\x87\xcf",
         "yprv": b"\x04\x4a\x4e\x28",
@@ -73,4 +73,5 @@ NETWORKS = {
         "Zpub": b"\x02\x57\x54\x83",
         "bip32": const(1),
     },
+   
 }
