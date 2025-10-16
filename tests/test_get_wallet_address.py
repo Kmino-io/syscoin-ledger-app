@@ -28,8 +28,8 @@ def test_get_wallet_address_singlesig_legacy(client: RaggerClient):
             f"[f5acc2fd/44'/1'/0']tpubDCwYjpDhUdPGP5rS3wgNg13mTrrjBuG8V9VpWbyptX6TRPbNoZVXsoVUSkCjmQ8jJycjuDKBb9eataSymXakTTaGifxR6kmVsfFehH1ZgJT",
         ],
     )
-    assert client.get_wallet_address(wallet, None, 0,  0, False) == "mz5vLWdM1wHVGSmXUkhKVvZbJ2g4epMXSm"
-    assert client.get_wallet_address(wallet, None, 1, 15, False) == "myFCUBRCKFjV7292HnZtiHqMzzHrApobpT"
+    assert client.get_wallet_address(wallet, None, 0,  0, False) == "Tssn2dDP4pS4TwVdNshygHKByL5ciUwZx3"
+    assert client.get_wallet_address(wallet, None, 1, 15, False) == "Ts34AJ1EN8t4JWs8BuaYteaxgHhQHLUxgT"
 
 
 def test_get_wallet_address_singlesig_wit(client: RaggerClient):
@@ -41,8 +41,8 @@ def test_get_wallet_address_singlesig_wit(client: RaggerClient):
             f"[f5acc2fd/84'/1'/0']tpubDCtKfsNyRhULjZ9XMS4VKKtVcPdVDi8MKUbcSD9MJDyjRu1A2ND5MiipozyyspBT9bg8upEp7a8EAgFxNxXn1d7QkdbL52Ty5jiSLcxPt1P",
         ],
     )
-    assert client.get_wallet_address(wallet, None, 0,  0, False) == "tb1qzdr7s2sr0dwmkwx033r4nujzk86u0cy6fmzfjk"
-    assert client.get_wallet_address(wallet, None, 1, 15, False) == "tb1qlrvzyx8jcjfj2xuy69du9trtxnsvjuped7e289"
+    assert client.get_wallet_address(wallet, None, 0,  0, False) == "tsys1qzdr7s2sr0dwmkwx033r4nujzk86u0cy6ultf9a"
+    assert client.get_wallet_address(wallet, None, 1, 15, False) == "tsys1qlrvzyx8jcjfj2xuy69du9trtxnsvjupec6s2sw"
 
 
 def test_get_wallet_address_singlesig_sh_wit(client: RaggerClient):
@@ -54,8 +54,8 @@ def test_get_wallet_address_singlesig_sh_wit(client: RaggerClient):
             f"[f5acc2fd/49'/1'/0']tpubDC871vGLAiKPcwAw22EjhKVLk5L98UGXBEcGR8gpcigLQVDDfgcYW24QBEyTHTSFEjgJgbaHU8CdRi9vmG4cPm1kPLmZhJEP17FMBdNheh3",
         ],
     )
-    assert client.get_wallet_address(wallet, None, 0,  0, False) == "2MyHkbusvLomaarGYMqyq7q9pSBYJRwWcsw"
-    assert client.get_wallet_address(wallet, None, 1, 15, False) == "2NAbM4FSeBQG4o85kbXw2YNfKypcnEZS9MR"
+    assert client.get_wallet_address(wallet, None, 0,  0, False) == "tcJjeXcL4YFzyNnehKLA9JeKdt2A5bje4n"
+    assert client.get_wallet_address(wallet, None, 1, 15, False) == "tocL6sB3u8kVBebrw1HMZr9qBX6dqdARyJ"
 
 
 def test_get_wallet_address_singlesig_taproot(client: RaggerClient):
@@ -70,16 +70,16 @@ def test_get_wallet_address_singlesig_taproot(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, None, 0, 0, False)
-    assert res == "tb1pws8wvnj99ca6acf8kq7pjk7vyxknah0d9mexckh5s0vu2ccy68js9am6u7"
+    assert res == "tsys1pws8wvnj99ca6acf8kq7pjk7vyxknah0d9mexckh5s0vu2ccy68jsrjvezt"
 
     res = client.get_wallet_address(wallet, None, 0, 9, False)
-    assert res == "tb1psl7eyk2jyjzq6evqvan854fts7a5j65rth25yqahkd2a765yvj0qggs5ne"
+    assert res == "tsys1psl7eyk2jyjzq6evqvan854fts7a5j65rth25yqahkd2a765yvj0qw88hdv"
 
     res = client.get_wallet_address(wallet, None, 1, 0, False)
-    assert res == "tb1pmr60r5vfjmdkrwcu4a2z8h39mzs7a6wf2rfhuml6qgcp940x9cxs7t9pdy"
+    assert res == "tsys1pmr60r5vfjmdkrwcu4a2z8h39mzs7a6wf2rfhuml6qgcp940x9cxscyjzn3"
 
     res = client.get_wallet_address(wallet, None, 1, 9, False)
-    assert res == "tb1p98d6s9jkf0la8ras4nnm72zme5r03fexn29e3pgz4qksdy84ndpqgjak72"
+    assert res == "tsys1p98d6s9jkf0la8ras4nnm72zme5r03fexn29e3pgz4qksdy84ndpqwa24ql"
 
 
 # Failure cases for default wallets
@@ -225,7 +225,7 @@ def test_get_wallet_address_multisig_legacy(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 0, False)
-    assert res == "2Mx69MjHC4ViZAH1koVXPvVgaazbBCdr89j"
+    assert res == "tb78QM1bnECyYoXs8xsiwyB5nh52vxaFWC"
 
 
 def test_get_wallet_address_multisig_sh_wit(client: RaggerClient):
@@ -245,7 +245,7 @@ def test_get_wallet_address_multisig_sh_wit(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 0, False)
-    assert res == "2MxAUTJh27foYtyp9dcSxP7RgaSwkkVCHTU"
+    assert res == "tbBTVvRRqQHyHWLFy5oHQavBn9RcQd54NN"
 
 
 def test_get_wallet_address_multisig_wit(client: RaggerClient):
@@ -265,7 +265,7 @@ def test_get_wallet_address_multisig_wit(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 0, False)
-    assert res == "tb1qmyauyzn08cduzdqweexgna2spwd0rndj55fsrkefry2cpuyt4cpsn2pg28"
+    assert res == "tsys1qmyauyzn08cduzdqweexgna2spwd0rndj55fsrkefry2cpuyt4cps49kt5j"
 
 
 def test_get_wallet_address_tr_script_pk(client: RaggerClient):
@@ -283,7 +283,7 @@ def test_get_wallet_address_tr_script_pk(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 0, False)
-    assert res == "tb1pls9pp5cgcljpkjauxep03lv2c2yc2wcuua26p3ks6j2lq0vl9kjqf5rgm2"
+    assert res == "tsys1pls9pp5cgcljpkjauxep03lv2c2yc2wcuua26p3ks6j2lq0vl9kjq0m5t9l"
 
 
 def test_get_wallet_address_tr_script_sortedmulti(client: RaggerClient):
@@ -302,7 +302,7 @@ def test_get_wallet_address_tr_script_sortedmulti(client: RaggerClient):
     )
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 0, False)
-    assert res == "tb1pdzk72dnvz3246474p4m5a97u43h6ykt2qcjrrhk6y0fkg8hx2mvswwgvv7"
+    assert res == "tsys1pdzk72dnvz3246474p4m5a97u43h6ykt2qcjrrhk6y0fkg8hx2mvsgpl0jt"
 
 
 def test_get_wallet_address_tr_musig_keypath(client: RaggerClient):
@@ -319,7 +319,7 @@ def test_get_wallet_address_tr_musig_keypath(client: RaggerClient):
         "05b7b4bccd3188effc24de8fd67e83231d8486772800884db0d81bad19f2be3e")
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 3, False)
-    assert res == "tb1pc87la0ksvw4pfq6qc3gn9en33kx7s9rx4c4epy578kfjsdjv6mks7u7dgn"
+    assert res == "tsys1pc87la0ksvw4pfq6qc3gn9en33kx7s9rx4c4epy578kfjsdjv6mkscnfwkx"
 
 
 def test_get_wallet_address_tr_musig_scriptpath(client: RaggerClient):
@@ -337,7 +337,7 @@ def test_get_wallet_address_tr_musig_scriptpath(client: RaggerClient):
         "b22397b717949ede59c3c9f31c987acda098471211f754b6633c87054c1efb51")
 
     res = client.get_wallet_address(wallet, wallet_hmac, 0, 3, False)
-    assert res == "tb1pa423acwcjc8jgt36muavyun8e2hz3t5qwptsr3wr8afmdfk3wchswf9ntp"
+    assert res == "tsys1pa423acwcjc8jgt36muavyun8e2hz3t5qwptsr3wr8afmdfk3wchsgxjs45"
 
 
 def test_get_wallet_address_large_addr_index(client: RaggerClient):
