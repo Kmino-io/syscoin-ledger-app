@@ -4,9 +4,9 @@ NETWORKS = {
     "main": {
         "name": "Mainnet",
         "wif": b"\x80",
-        "p2pkh": b"\x00",
-        "p2sh": b"\x05",
-        "bech32": "bc",
+        "p2pkh": b"\x3f",  # 63 decimal = 0x3f hex (COIN_P2PKH_VERSION=63)
+        "p2sh": b"\x05",   # 5 decimal = 0x05 hex (COIN_P2SH_VERSION=5) - already correct
+        "bech32": "sys",   # COIN_NATIVE_SEGWIT_PREFIX="sys" - already correct
         "xprv": b"\x04\x88\xad\xe4",
         "xpub": b"\x04\x88\xb2\x1e",
         "yprv": b"\x04\x9d\x78\x78",
@@ -17,7 +17,7 @@ NETWORKS = {
         "zpub": b"\x04\xb2\x47\x46",
         "Ypub": b"\x02\x95\xb4\x3f",
         "Zpub": b"\x02\xaa\x7e\xd3",
-        "bip32": const(0),  # coin type for bip32 derivation
+        "bip32": const(57),  # BIP44_COIN_TYPE=57 (changed from 0)
     },
     "test": {
         "name": "Testnet",

@@ -7,7 +7,7 @@ MNEMONIC = "abandon abandon abandon abandon abandon abandon abandon abandon aban
 
 @mnemonic(MNEMONIC)
 def test_bip86(client: Client, speculos_globals: SpeculosGlobals):
-    # Test vectors for BIP-0086: https://github.com/bitcoin/bips/blob/master/bip-0086.mediawiki
+    # Test vectors for BIP-0086 adapted for Syscoin mainnet (coin type 57)
 
     fpr = speculos_globals.master_key_fingerprint.hex()
 
@@ -17,18 +17,18 @@ def test_bip86(client: Client, speculos_globals: SpeculosGlobals):
         name="",
         descriptor_template="tr(@0/**)",
         keys_info=[
-            f"[{fpr}/86'/0'/0']xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ",
+            f"[{fpr}/86'/57'/0']xpub6CXaPZmr2vSHZwkubMWbGMhV2512eXPaEPnYLyfuJou6QU6pk1w5WsEPCkqTNJRNATxZ3eHT2xtm3Y3VkbvbSxu3rasjdTNv3twG2Yvvv6W",
         ],
     )
 
-    # Account 0, first receiving address = m/86'/0'/0'/0/0
+    # Account 0, first receiving address = m/86'/57'/0'/0/0 (Syscoin mainnet)
     res = client.get_wallet_address(wallet, None, 0, 0, False)
-    assert res == "bc1p5cyxnuxmeuwuvkwfem96lqzszd02n6xdcjrs20cac6yqjjwudpxqkedrcr"
+    assert res == "sys1p8k2ecghp80cxharnjpa2u7v26vp905fm2g2g343ujv2fzt7a6ldq7cpfn6"
 
-    # Account 0, second receiving address = m/86'/0'/0'/0/1
+    # Account 0, second receiving address = m/86'/57'/0'/0/1
     res = client.get_wallet_address(wallet, None, 0, 1, False)
-    assert res == "bc1p4qhjn9zdvkux4e44uhx8tc55attvtyu358kutcqkudyccelu0was9fqzwh"
+    assert res == "sys1pdss0dx7r8rxagzr7czwnnhlhulpnkxgm2jc9sm6lnrqf3khr2y4q2x7hha"
 
-    # Account 1, first change address = m/86'/0'/0'/1/0
+    # Account 1, first change address = m/86'/57'/0'/1/0
     res = client.get_wallet_address(wallet, None, 1, 0, False)
-    assert res == "bc1p3qkhfews2uk44qtvauqyr2ttdsw7svhkl9nkm9s9c3x4ax5h60wqwruhk7"
+    assert res == "sys1pfvqw5h6nsmfa9pycktuc74hjh05r02862wc6z2a9uqkvn5l6rrrqsyhmps"
