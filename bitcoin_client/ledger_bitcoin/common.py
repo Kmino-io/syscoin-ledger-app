@@ -18,7 +18,6 @@ class Chain(Enum):
     MAIN = 0 #: Bitcoin Main network
     TEST = 1 #: Bitcoin Test network
     REGTEST = 2 #: Bitcoin Core Regression Test network
-    SIGNET = 3 #: Bitcoin Signet
 
     def __str__(self) -> str:
         return self.name.lower()
