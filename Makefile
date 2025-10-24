@@ -128,7 +128,7 @@ ICON_NANOX  = icons/nanox_app_syscoin.gif
 ICON_NANOSP = icons/nanox_app_syscoin.gif
 ICON_STAX   = icons/stax_app_syscoin.png
 ICON_FLEX   = icons/flex_app_syscoin.png
-ICON_APEX_P ?= icons/apex_p_app_bitcoin.png
+ICON_APEX_P ?= icons/apex_p_app_syscoin.png
 
 ########################################
 # Application communication interfaces #
