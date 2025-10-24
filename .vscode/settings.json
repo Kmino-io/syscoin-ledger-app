@@ -6,7 +6,7 @@
   "editor.formatOnSave": true,
   "ledgerDevTools.appSettings": {
     "selectedUseCase": "release",
-    "selectedDevice": "Stax",
+    "selectedDevice": "Flex",
     "selectedVariant": "syscoin_testnet"
   }
 }
