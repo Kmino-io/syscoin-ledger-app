@@ -35,7 +35,7 @@
 
 extern const char GA_LOADING_MESSAGE[];
 
-static unsigned char const BSM_SIGN_MAGIC[] = {'\x18', 'B', 'i', 't', 'c', 'o', 'i', 'n', ' ',
+static unsigned char const SYS_SIGN_MAGIC[] = {'\x18', 'S', 'y', 's', 'c', 'o', 'i', 'n', ' ',
                                                'S',    'i', 'g', 'n', 'e', 'd', ' ', 'M', 'e',
                                                's',    's', 'a', 'g', 'e', ':', '\n'};
 
@@ -138,7 +138,7 @@ void handler_sign_message(dispatcher_context_t* dc, uint8_t protocol_version) {
     cx_sha256_init(&msg_hash_context);
     cx_sha256_init(&bsm_digest_context);
 
-    crypto_hash_update(&bsm_digest_context.header, BSM_SIGN_MAGIC, sizeof(BSM_SIGN_MAGIC));
+    crypto_hash_update(&bsm_digest_context.header, SYS_SIGN_MAGIC, sizeof(SYS_SIGN_MAGIC));
     crypto_hash_update_varint(&bsm_digest_context.header, message_length);
 
     size_t n_chunks = (message_length + MESSAGE_CHUNK_SIZE - 1) / MESSAGE_CHUNK_SIZE;

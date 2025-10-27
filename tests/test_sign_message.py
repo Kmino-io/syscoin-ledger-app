@@ -16,7 +16,7 @@ def test_sign_message(navigator: Navigator, firmware: Firmware, client: RaggerCl
                                  instructions=message_instruction_approve(firmware),
                                  testname=test_name)
 
-    assert result == "IOR4YRVlmJGMx+H7PgQvHzWAF0HAgrUggQeRdnoWKpypfaAberpvF+XbOCM5Cd/ljogNyU3w2OIL8eYCyZ6Ru2k="
+    assert result == "IOBm68KnZfgm/1wH+NXhhxd/q9wlv3cGIqeDWDSBaUh4dmLh6jl2WM8z4EEonuiEE2ZIpGXGB4K9E81YMCxeLrQ="
 
 
 def test_sign_message_64bytes(navigator: Navigator, firmware: Firmware, client: RaggerClient, test_name: str):
@@ -39,7 +39,7 @@ def test_sign_message_accept(navigator: Navigator, firmware: Firmware, client: R
         testname=test_name
     )
 
-    assert res == 'IEOK4+JMK7FToR7XMzFCoAYh1nud1IKm9Wq3vXLSVk/lBay8rHCRp9bP6riyR5NDqXYyYf7cXgMQTHNz3SemwZI='
+    assert res == 'H1XIhWCVbzW+wirwjJcaCFVDpkKgeQkBQf7fj8Kvp2LQGYbHfD4+eC8QLvJDa7QZrEJgiUaaOiV5GNWdLpt/Gig='
 
 
 def test_sign_message_accept_long(navigator: Navigator, firmware: Firmware, client: RaggerClient, test_name: str):
@@ -54,7 +54,7 @@ def test_sign_message_accept_long(navigator: Navigator, firmware: Firmware, clie
         testname=test_name
     )
 
-    assert res == 'H4frM6TYm5ty1MAf9o/Zz9Qiy3VEldAYFY91SJ/5nYMAZY1UUB97fiRjKW8mJit2+V4OCa1YCqjDqyFnD9Fw75k='
+    assert res == 'IE8NixU4TXDAqLwqq3hnw6vQN4gLr0S73CG1IfkYA3OKDDrzcTXStKgrXe5LpQn5JdpC0z1/YbYqoQxm0pMiklM='
 
 
 def test_sign_message_reject(navigator: Navigator, firmware: Firmware, client: RaggerClient, test_name: str):
@@ -81,7 +81,7 @@ def test_sign_message_accept_non_ascii(navigator: Navigator, firmware: Firmware,
         testname=test_name
     )
 
-    assert res == 'IGGk2UM12aQGtigJ7XCLJEXQl3bdKgx0G3CIt0ADSWknfAHqs+9+9OPZSjGrjyp46GjztGzUAnCa/DDMrSIAfbg='
+    assert res == 'ICC4xaqf21g/L40RC0r973k70Im3/KvS6Wx31j6vVwDiF0Od+tt3VF5kaPvpxveSzG3qNwzJmR4ZppA0Wy62iyk='
 
 
 def test_sign_message_accept_too_long(navigator: Navigator, firmware: Firmware, client: RaggerClient, test_name: str):
@@ -96,7 +96,7 @@ def test_sign_message_accept_too_long(navigator: Navigator, firmware: Firmware, 
         testname=test_name
     )
 
-    assert res == 'IDAl9RThAyunmYuol9DaDs/CScUpiol3FDSjIjyK9y0tc/x1HWrbT/ufdkPFY1Bmi+L9hc3ip1me2RmufprVuNk='
+    assert res == 'IJ6WzABGS1N+Ug1UP28YK+u9NbCmXPDZ/S1kF6FMLJ+Nc7YWC1GudI7xV9q52gF84T7UvvBIYBfYSF66hRkYqyE='
 
 
 def test_sign_message_hash_reject(navigator: Navigator, firmware: Firmware, client: RaggerClient, test_name: str):
