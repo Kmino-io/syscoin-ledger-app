@@ -1,6 +1,6 @@
-# Ledger Bitcoin Application
+# Ledger Syscoin Application
 
-This is the Bitcoin application for Ledger devices.
+This is the Syscoin application for Ledger devices. This application is a fork of LedgerHQ/app-bitcoin-new, so the bulk of it will work just like the original.
 
 ## Quick start guide
 
@@ -10,18 +10,18 @@ You can quickly setup a convenient environment to build and test your applicatio
 
 It will allow you, whether you are developing on macOS, Windows or Linux to quickly **build** your apps, **test** them on **Speculos** and **load** them on any supported device.
 
-* Install and run [Docker](https://www.docker.com/products/docker-desktop/).
-* Make sure you have an X11 server running :
-    * On Ubuntu Linux, it should be running by default.
-    * On macOS, install and launch [XQuartz](https://www.xquartz.org/) (make sure to go to XQuartz > Preferences > Security and check "Allow client connections").
-    * On Windows, install and launch [VcXsrv](https://sourceforge.net/projects/vcxsrv/) (make sure to configure it to disable access control).
-* Install [VScode](https://code.visualstudio.com/download) and add [Ledger's extension](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools).
-* Open a terminal and clone `app-bitcoin-new` with `git clone git@github.com:LedgerHQ/app-bitcoin-new.git`.
-* Open the `app-bitcoin-new` folder with VSCode.
-* Use Ledger extension's sidebar menu or open the tasks menu with `ctrl + shift + b` (`command + shift + b` on a Mac) to conveniently execute actions :
-    * Build the app for the device model of your choice with `Build`.
-    * Test your binary on [Speculos](https://github.com/LedgerHQ/speculos) with `Run with Speculos`.
-    * You can also run functional tests, load the app on a physical device, and more.
+- Install and run [Docker](https://www.docker.com/products/docker-desktop/).
+- Make sure you have an X11 server running :
+  - On Ubuntu Linux, it should be running by default.
+  - On macOS, install and launch [XQuartz](https://www.xquartz.org/) (make sure to go to XQuartz > Preferences > Security and check "Allow client connections").
+  - On Windows, install and launch [VcXsrv](https://sourceforge.net/projects/vcxsrv/) (make sure to configure it to disable access control).
+- Install [VScode](https://code.visualstudio.com/download) and add [Ledger's extension](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools).
+- Open a terminal and clone `app-bitcoin-new` with `git clone git@github.com:LedgerHQ/app-bitcoin-new.git`.
+- Open the `app-bitcoin-new` folder with VSCode.
+- Use Ledger extension's sidebar menu or open the tasks menu with `ctrl + shift + b` (`command + shift + b` on a Mac) to conveniently execute actions :
+  - Build the app for the device model of your choice with `Build`.
+  - Test your binary on [Speculos](https://github.com/LedgerHQ/speculos) with `Run with Speculos`.
+  - You can also run functional tests, load the app on a physical device, and more.
 
 :information_source: The terminal tab of VSCode will show you what commands the extension runs behind the scene.
 
@@ -75,15 +75,15 @@ make DEBUG=1  # compile optionally with PRINTF
 
 You can choose which device to compile and load for by setting the `BOLOS_SDK` environment variable to the following values :
 
-* `BOLOS_SDK=$NANOX_SDK`
-* `BOLOS_SDK=$NANOSP_SDK`
-* `BOLOS_SDK=$STAX_SDK`
-* `BOLOS_SDK=$FLEX_SDK`
-* `BOLOS_SDK=$APEX_P_SDK`
+- `BOLOS_SDK=$NANOX_SDK`
+- `BOLOS_SDK=$NANOSP_SDK`
+- `BOLOS_SDK=$STAX_SDK`
+- `BOLOS_SDK=$FLEX_SDK`
+- `BOLOS_SDK=$APEX_P_SDK`
 
 By default this variable is set to build/load for Nano S+.
 
-The app is compiled for testnet by default. In order to compile the app for mainnet, add `COIN=bitcoin` when running the `make` command.
+The app is compiled for testnet by default. In order to compile the app for mainnet, add `COIN=syscoin` when running the `make` command.
 
 ### Loading on a physical device
 
@@ -98,7 +98,7 @@ First make sure you have the proper udev rules added on your host :
 ```shell
 # Run these commands on your host, from the app's source folder.
 sudo cp .vscode/20-ledger.ledgerblue.rules /etc/udev/rules.d/
-sudo udevadm control --reload-rules 
+sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
 
@@ -119,19 +119,19 @@ Run these commands on your host from the app's source folder once you have [buil
 
 ```shell
 # Install Python virtualenv
-python3 -m pip install virtualenv 
+python3 -m pip install virtualenv
 # Create the 'ledger' virtualenv
 python3 -m virtualenv ledger
 ```
 
 Enter the Python virtual environment
 
-* macOS : `source ledger/bin/activate`
-* Windows : `.\ledger\Scripts\Activate.ps1`
+- macOS : `source ledger/bin/activate`
+- Windows : `.\ledger\Scripts\Activate.ps1`
 
 ```shell
 # Install Ledgerblue (tool to load the app)
-python3 -m pip install ledgerblue 
+python3 -m pip install ledgerblue
 # Load the app.
 python3 -m ledgerblue.runScript --scp --fileName bin/app.apdu --elfFile bin/app.elf
 ```
@@ -139,13 +139,15 @@ python3 -m ledgerblue.runScript --scp --fileName bin/app.apdu --elfFile bin/app.
 ## Documentation
 
 For many use cases, the code examples provided in the following client libraries might be sufficient to get started:
+
 - [Python client library](bitcoin_client)
 - [JavaScript client library](bitcoin_client_js)
 - [Rust client library](bitcoin_client_rs)
 
 If you need to go deeper into the rabbit hole 🐇🕳️, refer to the following documents:
-- [bitcoin.md](doc/bitcoin.md): Low-level documentation of the Bitcoin app's communication protocol and commands.
-- [merkle.md](doc/merkle.md): Advanced details on techniques used in the Bitcoin app's secured and scalable communication protocol.
+
+- [syscoin.md](doc/syscoin.md): Low-level documentation of the Syscoin app's communication protocol and commands.
+- [merkle.md](doc/merkle.md): Advanced details on techniques used in the Sitcoin app's secured and scalable communication protocol.
 - [wallet.md](doc/wallet.md): Information on the types of scripts supported by the Ledger Bitcoin app and the security requirements for multi-user or multi-key spending policies.
 - [debugging.md](doc/debugging.md): Guidance on how to diagnose and resolve issues.
 
