@@ -9,16 +9,10 @@ import ledger_bitcoin._base58 as base58
 from ledger_bitcoin.common import sha256
 from ledger_bitcoin import Chain
 from pathlib import Path
-from decimal import Decimal
-from time import sleep
-import subprocess
-import shutil
 from test_utils import segwit_addr
-from test_utils.authproxy import AuthServiceProxy, JSONRPCException
 from test_utils.fixtures import *
-from typing import List, Tuple
+from typing import List
 import random
-from bip32 import BIP32
 
 
 ###########################
@@ -58,95 +52,8 @@ random.seed(0)  # make sure tests are repeatable
 os.environ['SPECULOS_APPNAME'] = f'Syscoin Test:{get_app_version()}'
 
 
-BITCOIN_DIRNAME = os.getenv("BITCOIN_DIRNAME", "tests/.test_bitcoin")
 
-
-rpc_url = "http://%s:%s@%s:%s" % (
-    os.getenv("BTC_RPC_USER", "user"),
-    os.getenv("BTC_RPC_PASSWORD", "passwd"),
-    os.getenv("BTC_RPC_HOST", "127.0.0.1"),
-    os.getenv("BTC_RPC_PORT", "18443")
-)
-
-utxos = list()
-btc_addr = ""
-
-
-def get_rpc() -> AuthServiceProxy:
-    return AuthServiceProxy(rpc_url)
-
-
-def get_wallet_rpc(wallet_name: str) -> AuthServiceProxy:
-    return AuthServiceProxy(f"{rpc_url}/wallet/{wallet_name}")
-
-
-def setup_node():
-    global btc_addr
-
-    # Check bitcoind is running while generating the address
-    while True:
-        rpc = get_rpc()
-        try:
-            print(rpc.createwallet(wallet_name="test_wallet", descriptors=True))
-            btc_addr = rpc.getnewaddress()
-            break
-
-        except ConnectionError as e:
-            sleep(1)
-        except JSONRPCException as e:
-            if "Loading wallet..." in str(e):
-                sleep(1)
-
-    # Mine enough blocks so coinbases are mature and we have enough funds to run everything
-    rpc.generatetoaddress(105, btc_addr)
-
-
-@pytest.fixture(scope="session")
-def run_bitcoind():
-    # Run bitcoind in a separate folder
-    os.makedirs(BITCOIN_DIRNAME, exist_ok=True)
-
-    bitcoind = os.getenv("BITCOIND", "bitcoind")
-
-    shutil.copy(os.path.join(os.path.dirname(__file__),
-                "bitcoin.conf"), BITCOIN_DIRNAME)
-    subprocess.Popen([bitcoind, f"--datadir={BITCOIN_DIRNAME}"])
-
-    # Make sure the node is ready, and generate some initial blocks
-    setup_node()
-
-    yield
-
-    rpc = get_rpc()
-    rpc.stop()
-
-    shutil.rmtree(BITCOIN_DIRNAME)
-
-
-@pytest.fixture(scope="session")
-def rpc(run_bitcoind):
-    return get_rpc()
-
-
-@pytest.fixture(scope="session")
-def rpc_test_wallet(run_bitcoind):
-    return get_wallet_rpc("test_wallet")
-
-
-def get_utxo():
-    rpc = get_rpc()
-    global utxos
-    if not utxos:
-        utxos = rpc.listunspent()
-
-    if len(utxos) == 0:
-        raise ValueError("There are no UTXOs.")
-
-    utxo = utxos.pop(0)
-    while utxo.get("amount") < Decimal("0.00002"):
-        utxo = utxos.pop(0)
-
-    return utxo
+# Node-backed RPC fixtures and helpers removed; test suite is node-free
 
 
 def seed_to_wif(seed: bytes):
@@ -157,77 +64,6 @@ def seed_to_wif(seed: bytes):
 
 
 wallet_count = 0
-
-
-def get_unique_wallet_name() -> str:
-    global wallet_count
-
-    result = f"mywallet-{wallet_count}"
-
-    wallet_count += 1
-
-    return result
-
-
-def get_pseudorandom_keypair(wallet_name: str) -> Tuple[str, str]:
-    """
-    Generates a tpub and tpriv deterministically from the wallet name
-    Used in tests to have deterministic wallets in bitcoin-core instances.
-    """
-
-    bip32 = BIP32.from_seed(wallet_name.encode(), network="test")
-
-    xpub = bip32.get_xpub_from_path("m")
-    xpriv = bip32.get_xpriv_from_path("m")
-
-    return xpub, xpriv
-
-
-def create_new_wallet() -> Tuple[str, str]:
-    """Creates a new descriptor-enabled wallet in bitcoin-core. Each new wallet has an increasing counter as
-    part of it's name in order to avoid conflicts. Returns the wallet name and the xpub (with no key origin
-    information)."""
-
-    wallet_name = get_unique_wallet_name()
-
-    get_rpc().createwallet(wallet_name=wallet_name, descriptors=True)
-
-    core_xpub, _ = get_pseudorandom_keypair(wallet_name)
-
-    return wallet_name, core_xpub
-
-
-def recompute_checksum(rpc: AuthServiceProxy, descriptor: str) -> str:
-    # remove "#" and everything after it, if present
-    if '#' in descriptor:
-        descriptor = descriptor[:descriptor.index('#')]
-    descriptor_info = rpc.getdescriptorinfo(descriptor)
-    return descriptor + '#' + descriptor_info["checksum"]
-
-
-def import_descriptors_with_privkeys(core_wallet_name: str, receive_desc: str, change_desc: str):
-    wallet = get_wallet_rpc(core_wallet_name)
-    wallet_xpub, wallet_xpriv = get_pseudorandom_keypair(core_wallet_name)
-
-    assert wallet_xpub in receive_desc and wallet_xpub in change_desc
-
-    import_desc = [{
-        "desc": recompute_checksum(wallet, receive_desc.replace(wallet_xpub, wallet_xpriv)),
-        "active": True,
-        "internal": False,
-        "timestamp": "now"
-    }, {
-        "desc": recompute_checksum(wallet, change_desc.replace(wallet_xpub, wallet_xpriv)),
-        "active": True,
-        "internal": True,
-        "timestamp": "now"
-    }]
-    import_res = wallet.importdescriptors(import_desc)
-    assert import_res[0]["success"] and import_res[1]["success"]
-
-
-def generate_blocks(n):
-    return get_rpc().generatetoaddress(n, btc_addr)
 
 
 def testnet_to_regtest_addr(addr: str) -> str:
