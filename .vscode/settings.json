@@ -6,7 +6,7 @@
   "editor.formatOnSave": true,
   "ledgerDevTools.appSettings": {
     "selectedUseCase": "release",
-    "selectedDevice": "Apex p",
+    "selectedDevice": "Nano S Plus",
     "selectedVariant": "syscoin_testnet"
   }
 }
