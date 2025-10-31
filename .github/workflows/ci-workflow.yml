@@ -167,7 +167,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           cd tests_mainnet
-          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --model=${{ matrix.model }} --timeout=300
+          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --device=${{ matrix.model }} --timeout=300
 
   job_test_python_lib_legacyapp:
     name: Python tests (Syscoin)
@@ -202,7 +202,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           cd tests
-          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --timeout=300 --model=nanosp
+          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --timeout=300 --device=nanosp
 
   job_perftests:
     name: Performance report
@@ -238,7 +238,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           cd tests_perf
-          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --model=nanosp --benchmark-json=benchmarks.json
+          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --device=nanosp --benchmark-json=benchmarks.json
       - name: Upload benchmarks summary
         uses: actions/upload-artifact@v4
         with:
