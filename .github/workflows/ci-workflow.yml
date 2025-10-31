@@ -167,7 +167,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           cd tests_mainnet
-          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --device=${{ matrix.model }} --timeout=300
+          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --model=${{ matrix.model }} --timeout=300
 
   job_test_python_lib_legacyapp:
     name: Python tests (Syscoin)
