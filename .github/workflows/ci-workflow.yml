@@ -199,6 +199,12 @@ jobs:
           name: syscoin-testnet-app-nanosp
           path: bin
 
+      - name: Prepare binary in expected path
+        run: |
+          DEVICE="nanos2"
+          mkdir -p build/$DEVICE/bin
+          cp bin/app.elf build/$DEVICE/bin/app.elf
+
       - name: Install build dependencies
         run: apt update && apt install -y build-essential
 
