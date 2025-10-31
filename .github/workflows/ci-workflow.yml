@@ -43,16 +43,16 @@ jobs:
           make DEBUG=0 COIN=syscoin BOLOS_SDK=${{ matrix.SDK }} && mv bin/ syscoin-bin/
           make clean
           make DEBUG=0 COIN=syscoin_testnet BOLOS_SDK=${{ matrix.SDK }} && mv bin/ syscoin-testnet-bin/
-      - name: Upload Bitcoin app binary
+      - name: Upload Syscoin app binary
         uses: actions/upload-artifact@v4
         with:
-          name: bitcoin-app-${{ matrix.model }}
+          name: syscoin-app-${{ matrix.model }}
           path: syscoin-bin
 
-      - name: Upload Bitcoin Testnet app binary
+      - name: Upload Syscoin Testnet app binary
         uses: actions/upload-artifact@v4
         with:
-          name: bitcoin-testnet-app-${{ matrix.model }}
+          name: syscoin-testnet-app-${{ matrix.model }}
           path: syscoin-testnet-bin
 
   job_build_app_perftest:
@@ -71,10 +71,10 @@ jobs:
         run: |
           make DEBUG=0 COIN=syscoin_testnet BOLOS_SDK="$NANOSP_SDK" AUTOAPPROVE_FOR_PERF_TESTS=1
 
-      - name: Upload Bitcoin Testnet app binary
+      - name: Upload Syscoin Testnet app binary
         uses: actions/upload-artifact@v4
         with:
-          name: bitcoin-testnet-perftest-app-nanosp
+          name: syscoin-testnet-perftest-app-nanosp
           path: bin
 
   job_unit_test:
@@ -112,7 +112,8 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./unit-tests/coverage.info
           flags: unittests
-          name: codecov-app-bitcoin
+          name: codecov-app-syscoin
+          slug: Kmino-io/syscoin-ledger-app
           fail_ci_if_error: true
           verbose: true
 
@@ -153,10 +154,10 @@ jobs:
       - name: Clone
         uses: actions/checkout@v4
 
-      - name: Download Bitcoin app binary
+      - name: Download Syscoin app binary
         uses: actions/download-artifact@v4
         with:
-          name: bitcoin-app-${{matrix.model}}
+          name: syscoin-app-${{matrix.model}}
           path: bin
 
       - name: Install build dependencies
@@ -169,7 +170,7 @@ jobs:
           PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --model=${{ matrix.model }} --timeout=300
 
   job_test_python_lib_legacyapp:
-    name: Tests with the Python library and legacy Bitcoin app
+    name: Python tests (Syscoin)
     needs: job_build
     runs-on: ubuntu-latest
 
@@ -188,14 +189,20 @@ jobs:
       - name: Clone
         uses: actions/checkout@v4
 
+      - name: Download Syscoin Testnet app binary (Nano S+)
+        uses: actions/download-artifact@v4
+        with:
+          name: syscoin-testnet-app-nanosp
+          path: bin
+
       - name: Install build dependencies
         run: apt update && apt install -y build-essential
 
       - name: Run tests
         run: |
           pip install -r requirements.txt
-          cd bitcoin_client/tests
-          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --timeout=300 --model=nanos
+          cd tests
+          PYTHONPATH=$PYTHONPATH:/speculos pytest --headless --timeout=300 --model=nanosp
 
   job_perftests:
     name: Performance report
@@ -218,10 +225,10 @@ jobs:
       - name: Clone
         uses: actions/checkout@v4
 
-      - name: Download Bitcoin app binary for perftests
+      - name: Download Syscoin app binary for perftests
         uses: actions/download-artifact@v4
         with:
-          name: bitcoin-testnet-perftest-app-nanosp
+          name: syscoin-testnet-perftest-app-nanosp
           path: bin
 
       - name: Install build dependencies
@@ -267,10 +274,10 @@ jobs:
         run: |
           npm install -g yarn
 
-      - name: Download Bitcoin Testnet app binary
+      - name: Download Syscoin Testnet app binary
         uses: actions/download-artifact@v4
         with:
-          name: bitcoin-testnet-app-nanosp
+          name: syscoin-testnet-app-nanosp
           path: bin
 
       - name: Run tests
