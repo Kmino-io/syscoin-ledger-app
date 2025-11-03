@@ -1,4 +1,3 @@
-
 import fs from 'fs';
 import path from 'path';
 import process from 'process';
@@ -128,7 +127,7 @@ describe("test AppClient", () => {
 
   it("can retrieve the app's version", async () => {
     const result = await app.getAppAndVersion();
-    expect(result.name).toEqual("Bitcoin Test");
+    expect(result.name).toEqual("Syscoin Test");
     expect(result.version.split(".")[0]).toEqual("2")
   });
 
@@ -459,6 +458,6 @@ describe("test AppClient", () => {
     await setSpeculosAutomation(transport, automation);
 
     const result = await app.signMessage(Buffer.from(msg, "ascii"), path)
-    expect(result).toEqual("H4frM6TYm5ty1MAf9o/Zz9Qiy3VEldAYFY91SJ/5nYMAZY1UUB97fiRjKW8mJit2+V4OCa1YCqjDqyFnD9Fw75k=");
+    expect(result).toEqual("IE8NixU4TXDAqLwqq3hnw6vQN4gLr0S73CG1IfkYA3OKDDrzcTXStKgrXe5LpQn5JdpC0z1/YbYqoQxm0pMiklM=");
   });
 });
