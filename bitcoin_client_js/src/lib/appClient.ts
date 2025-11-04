@@ -2,7 +2,8 @@ import * as descriptors from '@bitcoinerlab/descriptors';
 import * as secp256k1 from '@bitcoinerlab/secp256k1';
 const { Descriptor } = descriptors.DescriptorsFactory(secp256k1);
 import Transport from '@ledgerhq/hw-transport';
-import { networks } from 'bitcoinjs-lib';
+import { Network } from 'bitcoinjs-lib';
+import { syscoinMainnet, syscoinTestnet } from './networks';
 
 import { pathElementsToBuffer, pathStringToArray } from './bip32';
 import { ClientCommandInterpreter } from './clientCommands';
@@ -87,7 +88,7 @@ export class AppClient {
       ins,
       0,
       CURRENT_PROTOCOL_VERSION,
-      data,
+  data,
       [0x9000, 0xe000]
     );
     while (response.readUInt16BE(response.length - 2) === 0xe000) {
@@ -103,7 +104,7 @@ export class AppClient {
         FrameworkIns.CONTINUE_INTERRUPTED,
         0,
         0,
-        commandResponse,
+        commandResponse as Buffer,
         [0x9000, 0xe000]
       );
     }
@@ -420,11 +421,11 @@ export class AppClient {
     if (addressIndex < 0 || !Number.isInteger(addressIndex))
       throw new Error('Invalid address index');
     const appAndVer = await this.getAppAndVersion();
-    let network;
+    let network: Network;
     if (appAndVer.name === 'Syscoin Test') {
-      network = networks.testnet;
+      network = syscoinTestnet;
     } else if (appAndVer.name === 'Syscoin') {
-      network = networks.bitcoin;
+      network = syscoinMainnet;
     } else {
       throw new Error(
         `Invalid network: ${appAndVer.name}. Expected 'Syscoin Test' or 'Syscoin'.`
