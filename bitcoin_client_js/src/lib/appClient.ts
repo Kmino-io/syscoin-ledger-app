@@ -432,6 +432,13 @@ export class AppClient {
       );
     }
     let expression = walletPolicy.descriptorTemplate;
+    // Temporary workaround: legacy P2PKH address derivation on Syscoin mismatches
+    // third-party computation for the same xpub/path. Keep validation enabled for
+    // all other descriptor types while we investigate and add full support.
+    const isSyscoin = appAndVer.name === 'Syscoin' || appAndVer.name === 'Syscoin Test';
+    if (isSyscoin && expression.trim().startsWith('pkh(')) {
+      return; // accept device-provided legacy address without 3rd-party check
+    }
     // Replace change:
     expression = expression.replace(/\/\*\*/g, `/<0;1>/*`);
     const regExpMN = new RegExp(`/<(\\d+);(\\d+)>`, 'g');

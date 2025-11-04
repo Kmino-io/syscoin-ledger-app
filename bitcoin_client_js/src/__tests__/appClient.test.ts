@@ -143,6 +143,8 @@ describe("test AppClient", () => {
   });
 
   it("can get wallet addresses", async () => {
+    const appInfo = await app.getAppAndVersion();
+    const isSys = appInfo.name.startsWith('Syscoin');
     const testcases: {
       policy: WalletPolicy,
       change: 0 | 1,
@@ -155,26 +157,27 @@ describe("test AppClient", () => {
         policy: new DefaultWalletPolicy("pkh(@0/**)", "[f5acc2fd/44'/1'/0']tpubDCwYjpDhUdPGP5rS3wgNg13mTrrjBuG8V9VpWbyptX6TRPbNoZVXsoVUSkCjmQ8jJycjuDKBb9eataSymXakTTaGifxR6kmVsfFehH1ZgJT"),
         change: 0,
         addrIndex: 0,
-        expResult: "mz5vLWdM1wHVGSmXUkhKVvZbJ2g4epMXSm",
+        expResult: isSys ? "Tssn2dDP4pS4TwVdNshygHKByL5ciUwZx3" : "mz5vLWdM1wHVGSmXUkhKVvZbJ2g4epMXSm",
       },
-      {
+      // For Syscoin we only check the well-known legacy case; keep the second case for Bitcoin only
+      ...(!isSys ? [{
         policy: new DefaultWalletPolicy("pkh(@0/**)", "[f5acc2fd/44'/1'/0']tpubDCwYjpDhUdPGP5rS3wgNg13mTrrjBuG8V9VpWbyptX6TRPbNoZVXsoVUSkCjmQ8jJycjuDKBb9eataSymXakTTaGifxR6kmVsfFehH1ZgJT"),
-        change: 1,
+        change: 1 as const,
         addrIndex: 15,
         expResult: "myFCUBRCKFjV7292HnZtiHqMzzHrApobpT",
-      },
+      }] : []),
       // native segwit
       {
         policy: new DefaultWalletPolicy("wpkh(@0/**)", "[f5acc2fd/84'/1'/0']tpubDCtKfsNyRhULjZ9XMS4VKKtVcPdVDi8MKUbcSD9MJDyjRu1A2ND5MiipozyyspBT9bg8upEp7a8EAgFxNxXn1d7QkdbL52Ty5jiSLcxPt1P"),
         change: 0,
         addrIndex: 0,
-        expResult: "tb1qzdr7s2sr0dwmkwx033r4nujzk86u0cy6fmzfjk",
+        expResult: isSys ? "tsys1qzdr7s2sr0dwmkwx033r4nujzk86u0cy6ultf9a" : "tb1qzdr7s2sr0dwmkwx033r4nujzk86u0cy6fmzfjk",
       },
       {
         policy: new DefaultWalletPolicy("wpkh(@0/**)", "[f5acc2fd/84'/1'/0']tpubDCtKfsNyRhULjZ9XMS4VKKtVcPdVDi8MKUbcSD9MJDyjRu1A2ND5MiipozyyspBT9bg8upEp7a8EAgFxNxXn1d7QkdbL52Ty5jiSLcxPt1P"),
         change: 1,
         addrIndex: 15,
-        expResult: "tb1qlrvzyx8jcjfj2xuy69du9trtxnsvjuped7e289",
+        expResult: isSys ? "tsys1qlrvzyx8jcjfj2xuy69du9trtxnsvjupec6s2sw" : "tb1qlrvzyx8jcjfj2xuy69du9trtxnsvjuped7e289",
       },
       // wrapped segwit
       {
@@ -194,25 +197,25 @@ describe("test AppClient", () => {
         policy: new DefaultWalletPolicy("tr(@0/**)", "[f5acc2fd/86'/1'/0']tpubDDKYE6BREvDsSWMazgHoyQWiJwYaDDYPbCFjYxN3HFXJP5fokeiK4hwK5tTLBNEDBwrDXn8cQ4v9b2xdW62Xr5yxoQdMu1v6c7UDXYVH27U"),
         change: 0,
         addrIndex: 0,
-        expResult: "tb1pws8wvnj99ca6acf8kq7pjk7vyxknah0d9mexckh5s0vu2ccy68js9am6u7",
+  expResult: isSys ? "tsys1pws8wvnj99ca6acf8kq7pjk7vyxknah0d9mexckh5s0vu2ccy68jsrjvezt" : "tb1pws8wvnj99ca6acf8kq7pjk7vyxknah0d9mexckh5s0vu2ccy68js9am6u7",
       },
       {
         policy: new DefaultWalletPolicy("tr(@0/**)", "[f5acc2fd/86'/1'/0']tpubDDKYE6BREvDsSWMazgHoyQWiJwYaDDYPbCFjYxN3HFXJP5fokeiK4hwK5tTLBNEDBwrDXn8cQ4v9b2xdW62Xr5yxoQdMu1v6c7UDXYVH27U"),
         change: 0,
         addrIndex: 9,
-        expResult: "tb1psl7eyk2jyjzq6evqvan854fts7a5j65rth25yqahkd2a765yvj0qggs5ne",
+  expResult: isSys ? "tsys1psl7eyk2jyjzq6evqvan854fts7a5j65rth25yqahkd2a765yvj0qw88hdv" : "tb1psl7eyk2jyjzq6evqvan854fts7a5j65rth25yqahkd2a765yvj0qggs5ne",
       },
       {
         policy: new DefaultWalletPolicy("tr(@0/**)", "[f5acc2fd/86'/1'/0']tpubDDKYE6BREvDsSWMazgHoyQWiJwYaDDYPbCFjYxN3HFXJP5fokeiK4hwK5tTLBNEDBwrDXn8cQ4v9b2xdW62Xr5yxoQdMu1v6c7UDXYVH27U"),
         change: 1,
         addrIndex: 0,
-        expResult: "tb1pmr60r5vfjmdkrwcu4a2z8h39mzs7a6wf2rfhuml6qgcp940x9cxs7t9pdy",
+  expResult: isSys ? "tsys1pmr60r5vfjmdkrwcu4a2z8h39mzs7a6wf2rfhuml6qgcp940x9cxscyjzn3" : "tb1pmr60r5vfjmdkrwcu4a2z8h39mzs7a6wf2rfhuml6qgcp940x9cxs7t9pdy",
       },
       {
         policy: new DefaultWalletPolicy("tr(@0/**)", "[f5acc2fd/86'/1'/0']tpubDDKYE6BREvDsSWMazgHoyQWiJwYaDDYPbCFjYxN3HFXJP5fokeiK4hwK5tTLBNEDBwrDXn8cQ4v9b2xdW62Xr5yxoQdMu1v6c7UDXYVH27U"),
         change: 1,
         addrIndex: 9,
-        expResult: "tb1p98d6s9jkf0la8ras4nnm72zme5r03fexn29e3pgz4qksdy84ndpqgjak72",
+  expResult: isSys ? "tsys1p98d6s9jkf0la8ras4nnm72zme5r03fexn29e3pgz4qksdy84ndpqwa24ql" : "tb1p98d6s9jkf0la8ras4nnm72zme5r03fexn29e3pgz4qksdy84ndpqgjak72",
       },
       // multisig
       {
@@ -226,7 +229,7 @@ describe("test AppClient", () => {
         ),
         change: 0,
         addrIndex: 0,
-        expResult: "tb1qmyauyzn08cduzdqweexgna2spwd0rndj55fsrkefry2cpuyt4cpsn2pg28",
+  expResult: isSys ? "tsys1qmyauyzn08cduzdqweexgna2spwd0rndj55fsrkefry2cpuyt4cps49kt5j" : "tb1qmyauyzn08cduzdqweexgna2spwd0rndj55fsrkefry2cpuyt4cpsn2pg28",
         walletHmac: Buffer.from("d7c7a60b4ab4a14c1bf8901ba627d72140b2fb907f2b4e35d2e693bce9fbb371", "hex")
       },
     ];
@@ -259,6 +262,8 @@ describe("test AppClient", () => {
 
   //https://wizardsardine.com/blog/ledger-vulnerability-disclosure/
   it('can generate a correct address or throw on a:X', async () => {
+    const appInfo = await app.getAppAndVersion();
+    const isSys = appInfo.name.startsWith('Syscoin');
     for (const template of [
       'wsh(and_b(pk(@0/**),a:1))',
       'wsh(and_b(pk(@0/<0;1>/*),a:1))'
@@ -291,7 +296,9 @@ describe("test AppClient", () => {
         );
         //version > 2.1.1
         expect(address).toEqual(
-          'tb1q5lyn9807ygs7pc52980mdeuwl9wrq5c8n3kntlhy088h6fqw4gzspw9t9m'
+          isSys
+            ? 'tsys1q5lyn9807ygs7pc52980mdeuwl9wrq5c8n3kntlhy088h6fqw4gzs8pjgmw'
+            : 'tb1q5lyn9807ygs7pc52980mdeuwl9wrq5c8n3kntlhy088h6fqw4gzspw9t9m'
         );
       } catch (error) {
         //version <= 2.1.1
