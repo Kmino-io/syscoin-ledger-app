@@ -35,6 +35,8 @@ jobs:
       image: ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder:latest
 
     steps:
+      - name: Install git (required by checkout)
+        run: apt-get update && apt-get install -y git
       - name: Clone
         uses: actions/checkout@v4
 
@@ -64,6 +66,8 @@ jobs:
       image: ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder:latest
 
     steps:
+      - name: Install git (required by checkout)
+        run: apt-get update && apt-get install -y git
       - name: Clone
         uses: actions/checkout@v4
 
@@ -86,6 +90,8 @@ jobs:
       image: ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder:latest
 
     steps:
+      - name: Install git (required by checkout)
+        run: apt-get update && apt-get install -y git
       - name: Clone
         uses: actions/checkout@v4
 
@@ -309,6 +315,8 @@ jobs:
       image: ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder:latest
 
     steps:
+      - name: Install git (required by checkout)
+        run: apt-get update && apt-get install -y git
       - name: Clone
         uses: actions/checkout@v4
 
