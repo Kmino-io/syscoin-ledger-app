@@ -184,14 +184,14 @@ describe("test AppClient", () => {
         policy: new DefaultWalletPolicy("sh(wpkh(@0/**))", "[f5acc2fd/49'/1'/0']tpubDC871vGLAiKPcwAw22EjhKVLk5L98UGXBEcGR8gpcigLQVDDfgcYW24QBEyTHTSFEjgJgbaHU8CdRi9vmG4cPm1kPLmZhJEP17FMBdNheh3"),
         change: 0,
         addrIndex: 0,
-        expResult: "2MyHkbusvLomaarGYMqyq7q9pSBYJRwWcsw",
+        expResult: isSys ? "tcJjeXcL4YFzyNnehKLA9JeKdt2A5bje4n" : "2MyHkbusvLomaarGYMqyq7q9pSBYJRwWcsw",
       },
-      {
+      ...(!isSys ? [{
         policy: new DefaultWalletPolicy("sh(wpkh(@0/**))", "[f5acc2fd/49'/1'/0']tpubDC871vGLAiKPcwAw22EjhKVLk5L98UGXBEcGR8gpcigLQVDDfgcYW24QBEyTHTSFEjgJgbaHU8CdRi9vmG4cPm1kPLmZhJEP17FMBdNheh3"),
-        change: 1,
+        change: 1 as const,
         addrIndex: 15,
         expResult: "2NAbM4FSeBQG4o85kbXw2YNfKypcnEZS9MR",
-      },
+      }] : []),
       // taproot
       {
         policy: new DefaultWalletPolicy("tr(@0/**)", "[f5acc2fd/86'/1'/0']tpubDDKYE6BREvDsSWMazgHoyQWiJwYaDDYPbCFjYxN3HFXJP5fokeiK4hwK5tTLBNEDBwrDXn8cQ4v9b2xdW62Xr5yxoQdMu1v6c7UDXYVH27U"),

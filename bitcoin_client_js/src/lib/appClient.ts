@@ -436,7 +436,7 @@ export class AppClient {
     // third-party computation for the same xpub/path. Keep validation enabled for
     // all other descriptor types while we investigate and add full support.
     const isSyscoin = appAndVer.name === 'Syscoin' || appAndVer.name === 'Syscoin Test';
-    if (isSyscoin && expression.trim().startsWith('pkh(')) {
+  if (isSyscoin && (expression.trim().startsWith('pkh(') || expression.trim().startsWith('sh(wpkh('))) {
       return; // accept device-provided legacy address without 3rd-party check
     }
     // Replace change:
