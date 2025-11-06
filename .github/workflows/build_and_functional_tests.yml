@@ -33,7 +33,7 @@ jobs:
   ragger_tests:
     name: Run ragger tests using the reusable workflow
     needs: build_application
-    uses: guilhermefleury/ledger-app-workflows-for-syscoin/.github/workflows/reusable_ragger_tests.yml@main
+    uses: guilhermefleury/ledger-app-workflows-for-syscoin/.github/workflows/reusable_ragger_tests.yml@master
     with:
       download_app_binaries_artifact: "compiled_app_binaries"
       container_image: "ghcr.io/ledgerhq/speculos:latest"
